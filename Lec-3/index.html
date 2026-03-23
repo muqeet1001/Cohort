@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        input { margin: 10px; padding: 5px; }
+        button { margin: 10px; padding: 10px; }
+        #result { margin-top: 20px; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <h1>Simple Calculator</h1>
+    <input type="number" id="a" placeholder="Enter a" />
+    <input type="number" id="b" placeholder="Enter b" />
+    <br>
+    <button onclick="calculate('sum')">Sum</button>
+    <button onclick="calculate('sub')">Subtract</button>
+    <button onclick="calculate('mul')">Multiply</button>
+    <button onclick="calculate('div')">Divide</button>
+    <div id="result"></div>
+
+    <script>
+        async function calculate(op) {
+            const a = document.getElementById('a').value;
+            const b = document.getElementById('b').value;
+            let url;
+            if (op === 'sum') {
+                url = `/sum?a=${a}&b=${b}`;
+                const response = await fetch(url);
+                const html = await response.text();
+                document.body.innerHTML = html; // Replace page with result
+            } else if (op === 'sub') {
+                url = `/sub/${a}/${b}`;
+            } else {
+                url = `/${op}?a=${a}&b=${b}`;
+            }
+            if (op !== 'sum') {
+                const response = await fetch(url);
+                const data = await response.json();
+                document.getElementById('result').innerText = `Result: ${data.ans}`;
+            }
+        }
+    </script>
+</body>
+</html>
