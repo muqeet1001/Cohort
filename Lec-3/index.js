@@ -4,7 +4,7 @@ const app = express();
 app.get('/sum',(req,res)=>{
     const a = parseInt(req.query.a)
     const b = parseInt(req.query.b)
-    const name = (req.query.name)
+    const name = (req.query.name) 
     console.log(name);
     
     const sum = a+b;
@@ -40,6 +40,7 @@ app.get('/sum',(req,res)=>{
         </html>
     `);
 })
+
 app.get('/sub/:a/:b',(req,res)=>{
     const a = parseInt(req.params.a)
     const b = parseInt(req.params.b)
@@ -48,6 +49,7 @@ app.get('/sub/:a/:b',(req,res)=>{
         ans:sum
     })
 })
+
 app.get('/mul',(req,res)=>{
     const a = parseInt(req.query.a)
     const b = parseInt(req.query.b)
@@ -64,8 +66,6 @@ app.get('/div',(req,res)=>{
         ans:sum
     })
 })
-
-
 app.listen(3000,()=>{
     console.log("Server is running is port 3000");
 })
