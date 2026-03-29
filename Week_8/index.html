@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+</head>
+<body>
+    <div>
+        <label for="first">First Number</label>
+        <input id="first" type="number">
+        <br>
+        <label for="sec">Secound Number</label>
+        <input id="sec" type="number">
+        <div>
+            <button class="add">Add</button>
+            <button class="sub">Sub</button>
+        </div>
+    </div>
+    <br>
+   <script>
+   // get first button
+  const first = document.getElementById("first");
+  const second = document.getElementById("sec");
+  const addbtn = document.getElementsByClassName("add")[0];
+  const subbtn = document.getElementsByClassName("sub")[0];
+
+  addbtn.onclick = async function () {
+    const a = parseInt(first.value);
+    const b = parseInt(second.value);
+   
+    const ans =await fetch(`http://localhost:3000/sum` , {
+        method:"POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify({
+            a:a,
+            b:b
+        })
+    },
+    );
+     const json = await ans.json();
+    const h1 =  document.createElement("h1");
+    h1.innerHTML = json.sum;
+     document.body.appendChild(h1);
+  };
+
+   subbtn.onclick = async function () {
+    const a = parseInt(first.value);
+    const b = parseInt(second.value);
+   
+    const ans =await fetch(`http://localhost:3000/sub?a=${a}&b=${b}`);
+     const json = await ans.json();
+    const h1 =  document.createElement("h1");
+    h1.innerHTML = json.sub;
+     document.body.appendChild(h1);
+  };
+</script>
+</body>
+
+</html>
